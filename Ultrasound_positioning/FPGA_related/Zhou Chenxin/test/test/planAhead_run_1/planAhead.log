@@ -1,0 +1,79 @@
+#-----------------------------------------------------------
+# PlanAhead v14.6 (64-bit)
+# Build 269223 by xbuild on Wed Jun  5 11:14:03 MDT 2013
+# Start of session at: Fri Oct 26 18:22:02 2018
+# Process ID: 3608
+# Log file: C:/Users/SJTU/Desktop/test/test/planAhead_run_1/planAhead.log
+# Journal file: C:/Users/SJTU/Desktop/test/test/planAhead_run_1/planAhead.jou
+#-----------------------------------------------------------
+INFO: [Common 17-78] Attempting to get a license: PlanAhead
+INFO: [Common 17-290] Got license for PlanAhead
+INFO: [Device 21-36] Loading parts and site information from D:/Xilinx/14.6/ISE_DS/PlanAhead/data/parts/arch.xml
+Parsing RTL primitives file [D:/Xilinx/14.6/ISE_DS/PlanAhead/data/parts/xilinx/rtl/prims/rtl_prims.xml]
+Finished parsing RTL primitives file [D:/Xilinx/14.6/ISE_DS/PlanAhead/data/parts/xilinx/rtl/prims/rtl_prims.xml]
+start_gui
+source C:/Users/SJTU/Desktop/test/test/pa.fromHdl.tcl
+# create_project -name test -dir "C:/Users/SJTU/Desktop/test/test/planAhead_run_1" -part xc5vlx50tff1136-2
+# set_param project.pinAheadLayout yes
+# set srcset [get_property srcset [current_run -impl]]
+# set_property target_constrs_file "test.ucf" [current_fileset -constrset]
+Adding file 'C:/Users/SJTU/Desktop/test/test/test.ucf' to fileset 'constrs_1'
+# add_files [list {ipcore_dir/sin.ngc}]
+# set hdlfile [add_files [list {ipcore_dir/sin.v}]]
+# set_property file_type Verilog $hdlfile
+# set_property library work $hdlfile
+# set hdlfile [add_files [list {test.v}]]
+# set_property file_type Verilog $hdlfile
+# set_property library work $hdlfile
+# set_property top test $srcset
+# add_files [list {test.ucf}] -fileset [get_property constrset [current_run]]
+# add_files [list {ipcore_dir/sin.ncf}] -fileset [get_property constrset [current_run]]
+# open_rtl_design -part xc5vlx50tff1136-2
+Using Verific elaboration
+Parsing VHDL file "D:/Xilinx/14.6/ISE_DS/PlanAhead/data/parts/xilinx/rtl/lib/synplify/synattr.vhd" into library synplify
+Analyzing Verilog file "C:/Users/SJTU/Desktop/test/test/ipcore_dir/sin.v" into library work
+Analyzing Verilog file "C:/Users/SJTU/Desktop/test/test/test.v" into library work
+Release 14.6 - ngc2edif P.68d (nt64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+Reading design sin.ngc ...
+WARNING:NetListWriters:298 - No output is written to sin.xncf, ignored.
+Processing design ...
+   Preping design's networks ...
+   Preping design's macros ...
+  finished :Prep
+Writing EDIF netlist file sin.edif ...
+ngc2edif: Total memory usage is 94136 kilobytes
+
+Reading core file 'C:/Users/SJTU/Desktop/test/test/ipcore_dir/sin.ngc' for (cell view 'sin', library 'work', file 'sin.v')
+Parsing EDIF File [./.Xil/PlanAhead-3608-SJTU-PC/ngc2edif/sin.edif]
+Finished Parsing EDIF File [./.Xil/PlanAhead-3608-SJTU-PC/ngc2edif/sin.edif]
+INFO: [Designutils 20-910] Reading macro library D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/virtex5lx/hd_int_macros.edn
+Parsing EDIF File [D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/virtex5lx/hd_int_macros.edn]
+Finished Parsing EDIF File [D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/virtex5lx/hd_int_macros.edn]
+INFO: [Device 21-21] Reading bus macro file D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/pr_bus_macros.xml
+Loading clock regions from D:/Xilinx/14.6/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx50t/ClockRegion.xml
+Loading clock buffers from D:/Xilinx/14.6/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx50t/ClockBuffers.xml
+Loading package from D:/Xilinx/14.6/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx50t/ff1136/Package.xml
+Loading io standards from D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/IOStandards.xml
+INFO: [Device 21-19] Loading pkg sso from D:/Xilinx/14.6/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx50t/ff1136/SSORules.xml
+Loading list of drcs for the architecture : D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/drc.xml
+Parsing UCF File [C:/Users/SJTU/Desktop/test/test/test.ucf]
+CRITICAL WARNING: [Constraints 18-11] Could not find net or pin 'led_out' [C:/Users/SJTU/Desktop/test/test/test.ucf:6]
+Finished Parsing UCF File [C:/Users/SJTU/Desktop/test/test/test.ucf]
+INFO: [Designutils 20-20] Invalid constraints found, use command 'write_ucf -constraints invalid <file>' to save all the invalid constraints to a file
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Phase 0 | Netlist Checksum: 6c5143cf
+open_rtl_design: Time (s): elapsed = 00:00:13 . Memory (MB): peak = 697.379 ; gain = 291.477
+update_compile_order -fileset sim_1
+exit
+ERROR: [PlanAhead 12-106] *** Exception: ui.h.b: Found deleted key in HTclEventBroker. Verify if the classes listed here call cleanup()
+HTclEvent: SIGNAL_BUS_MODIFY   Classes: ui.views.aR 
+HTclEvent: SIGNAL_MODIFY   Classes: ui.views.aR 
+HTclEvent: DEBUG_CORE_CONFIG_CHANGE   Classes: ui.views.aR 
+HTclEvent: DEBUG_PORT_CONFIG_CHANGE   Classes: ui.views.aR 
+ (See C:/Users/SJTU/Desktop/test/test\planAhead_pid3608.debug)
+ERROR: [Common 17-39] 'stop_gui' failed due to earlier errors.
+INFO: [Common 17-206] Exiting PlanAhead at Fri Oct 26 18:22:42 2018...
+INFO: [Common 17-83] Releasing license: PlanAhead

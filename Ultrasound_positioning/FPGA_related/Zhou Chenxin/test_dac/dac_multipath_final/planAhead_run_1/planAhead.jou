@@ -1,0 +1,20 @@
+#-----------------------------------------------------------
+# PlanAhead v14.6 (64-bit)
+# Build 269223 by xbuild on Wed Jun  5 11:14:03 MDT 2013
+# Start of session at: Wed Jan 16 13:48:50 2019
+# Process ID: 24200
+# Log file: C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath_final/planAhead_run_1/planAhead.log
+# Journal file: C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath_final/planAhead_run_1/planAhead.jou
+#-----------------------------------------------------------
+start_gui
+source {C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath_final/pa.fromNetlist.tcl}
+startgroup
+set_property package_pin AL11 [get_ports din_1]
+endgroup
+startgroup
+set_property package_pin AK9 [get_ports clk_out_1]
+endgroup
+startgroup
+set_property package_pin AJ10 [get_ports sync_1]
+endgroup
+save_constraints

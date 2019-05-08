@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=C:\Users\SJTU\Desktop\Zhou Chenxin\test_dac\dac_multipath_final\main.ncd
+OUTFILE=C:\Users\SJTU\Desktop\Zhou Chenxin\test_dac\dac_multipath_final\main.bit
+FAMILY=Virtex5
+PART=xc5vlx50t-2ff1136
+WORKINGDIR=C:\Users\SJTU\Desktop\Zhou Chenxin\test_dac\dac_multipath_final
+LICENSE=WebPack
+USER_INFO=__0_0_0

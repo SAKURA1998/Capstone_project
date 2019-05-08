@@ -1,0 +1,8 @@
+Storage Target: Xilinx Flash/PROM
+Storage Family: Platform Flash
+Auto Select Storage Device
+FF
+Untitled
+C:\Users\SJTU\Desktop\Zhou Chenixn\test\test\
+
+MCS

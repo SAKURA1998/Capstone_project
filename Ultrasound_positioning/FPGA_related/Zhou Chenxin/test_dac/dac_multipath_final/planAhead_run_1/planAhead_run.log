@@ -1,0 +1,69 @@
+
+****** PlanAhead v14.6 (64-bit)
+  **** Build 269223 by xbuild on Wed Jun  5 11:14:03 MDT 2013
+    ** Copyright 1986-1999, 2001-2012 Xilinx, Inc. All Rights Reserved.
+
+INFO: [Common 17-78] Attempting to get a license: PlanAhead
+INFO: [Common 17-290] Got license for PlanAhead
+INFO: [Device 21-36] Loading parts and site information from D:/Xilinx/14.6/ISE_DS/PlanAhead/data/parts/arch.xml
+Parsing RTL primitives file [D:/Xilinx/14.6/ISE_DS/PlanAhead/data/parts/xilinx/rtl/prims/rtl_prims.xml]
+Finished parsing RTL primitives file [D:/Xilinx/14.6/ISE_DS/PlanAhead/data/parts/xilinx/rtl/prims/rtl_prims.xml]
+start_gui
+source {C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath_final/pa.fromNetlist.tcl}
+# create_project -name dac_multipath_final -dir "C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath_final/planAhead_run_2" -part xc5vlx50tff1136-2
+# set_property design_mode GateLvl [get_property srcset [current_run -impl]]
+# set_property edif_top_file "C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath_final/main.ngc" [ get_property srcset [ current_run ] ]
+# add_files -norecurse { {C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath_final} }
+# set_param project.pinAheadLayout  yes
+# set_property target_constrs_file "main.ucf" [current_fileset -constrset]
+Adding file 'C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath_final/main.ucf' to fileset 'constrs_1'
+# add_files [list {main.ucf}] -fileset [get_property constrset [current_run]]
+# link_design
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+Design is defaulting to project part: xc5vlx50tff1136-2
+Release 14.6 - ngc2edif P.68d (nt64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+Reading design main.ngc ...
+WARNING:NetListWriters:298 - No output is written to main.xncf, ignored.
+Processing design ...
+   Preping design's networks ...
+   Preping design's macros ...
+  finished :Prep
+Writing EDIF netlist file main.edif ...
+ngc2edif: Total memory usage is 85944 kilobytes
+
+Parsing EDIF File [./planAhead_run_2/dac_multipath_final.data/cache/main_ngc_zx.edif]
+Finished Parsing EDIF File [./planAhead_run_2/dac_multipath_final.data/cache/main_ngc_zx.edif]
+INFO: [Designutils 20-910] Reading macro library D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/virtex5lx/hd_int_macros.edn
+Parsing EDIF File [D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/virtex5lx/hd_int_macros.edn]
+Finished Parsing EDIF File [D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/virtex5lx/hd_int_macros.edn]
+WARNING: [Netlist 29-43] Netlist 'main' is not ideal for floorplanning, since the cellview 'main' defined in file 'main.ngc' contains large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Device 21-21] Reading bus macro file D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/pr_bus_macros.xml
+Loading clock regions from D:/Xilinx/14.6/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx50t/ClockRegion.xml
+Loading clock buffers from D:/Xilinx/14.6/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx50t/ClockBuffers.xml
+Loading package from D:/Xilinx/14.6/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx50t/ff1136/Package.xml
+Loading io standards from D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/IOStandards.xml
+INFO: [Device 21-19] Loading pkg sso from D:/Xilinx/14.6/ISE_DS/PlanAhead/data\parts/xilinx/virtex5/virtex5lxt/xc5vlx50t/ff1136/SSORules.xml
+Loading list of drcs for the architecture : D:/Xilinx/14.6/ISE_DS/PlanAhead/data\./parts/xilinx/virtex5/drc.xml
+Parsing UCF File [C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath_final/main.ucf]
+Finished Parsing UCF File [C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath_final/main.ucf]
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Phase 0 | Netlist Checksum: 294cc50d
+link_design: Time (s): elapsed = 00:00:20 . Memory (MB): peak = 686.063 ; gain = 279.832
+startgroup
+set_property package_pin AL11 [get_ports din_1]
+endgroup
+startgroup
+set_property package_pin AK9 [get_ports clk_out_1]
+endgroup
+startgroup
+set_property package_pin AJ10 [get_ports sync_1]
+endgroup
+save_constraints
+exit
+ERROR: [Common 17-39] 'stop_gui' failed due to earlier errors.
+INFO: [Common 17-206] Exiting PlanAhead at Wed Jan 16 13:51:35 2019...
+INFO: [Common 17-83] Releasing license: PlanAhead

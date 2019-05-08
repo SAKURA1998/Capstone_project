@@ -1,0 +1,18 @@
+PROMGEN: Xilinx Prom Generator P.68d
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+promgen -w -p mcs -c FF -o "C:\Users\SJTU\Desktop\Zhou Chenixn\test\test\//qw" -x xcf32p -u 00000000 C:/Users/SJTU/Desktop/ad7606_fpga/transmitter/top.bit C:/Users/SJTU/Desktop/ad7606_fpga/transmitter/top.bit 
+
+PROM C:\Users\SJTU\Desktop\Zhou Chenixn\test\test\qw.prm map: Thu Jan 10 16:38:26 2019
+
+Calculating PROM checksum with fill value ff
+
+Format        Mcs86 (32-bit)
+Size          4096K
+PROM start    0000:0000
+PROM end      003f:ffff
+PROM checksum 0a601c5b
+
+        Addr1        Addr2                     Date File(s)
+    0000:0000    0035:9b53     Jan 10 16:37:12 2019 C:/Users/SJTU/Desktop/ad7606_fpga/transmitter/top.bit
+                               Jan 10 16:37:12 2019 C:/Users/SJTU/Desktop/ad7606_fpga/transmitter/top.bit

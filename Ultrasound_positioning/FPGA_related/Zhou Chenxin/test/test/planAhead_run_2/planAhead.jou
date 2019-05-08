@@ -1,0 +1,28 @@
+#-----------------------------------------------------------
+# PlanAhead v14.6 (64-bit)
+# Build 269223 by xbuild on Wed Jun  5 11:14:03 MDT 2013
+# Start of session at: Wed Dec 19 14:27:32 2018
+# Process ID: 44848
+# Log file: C:/Users/SJTU/Desktop/Zhou Chenixn/test/test/planAhead_run_2/planAhead.log
+# Journal file: C:/Users/SJTU/Desktop/Zhou Chenixn/test/test/planAhead_run_2/planAhead.jou
+#-----------------------------------------------------------
+start_gui
+source {C:/Users/SJTU/Desktop/Zhou Chenixn/test/test/pa.fromNetlist.tcl}
+set_property package_pin "" [get_ports [list  clk_out]]
+startgroup
+set_property package_pin J19 [get_ports reset]
+endgroup
+set_property package_pin "" [get_ports [list  din]]
+startgroup
+set_property package_pin G7 [get_ports reset]
+endgroup
+startgroup
+set_property package_pin AD11 [get_ports din]
+endgroup
+startgroup
+set_property package_pin AD9 [get_ports sync_out]
+endgroup
+startgroup
+set_property package_pin AM13 [get_ports clk_out]
+endgroup
+save_constraints

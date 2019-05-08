@@ -1,0 +1,14 @@
+# Output products list for <sin>
+sin.asy
+sin.gise
+sin.ngc
+sin.sym
+sin.v
+sin.veo
+sin.xco
+sin.xise
+sin\doc\cordic_ds249.pdf
+sin\doc\cordic_v4_0_vinfo.html
+sin_flist.txt
+sin_readme.txt
+sin_xmdf.tcl

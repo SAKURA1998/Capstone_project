@@ -1,0 +1,12 @@
+MAYA44 USB+ v3.601
+
+* official release for Windows 10
+* improved performance on 32-bit and 64-bit systems
+* improved performance on Windows 8 and Windows 8.1
+* new installer, fixed problem on 32-bit systems
+* level meter display added in control panel
+* only supports Windows Vista and higher
+* significantly improved sleep & hibernation support
+* channel playback clone function added
+* digital output device added for better DTS/Dolby Digital support
+* works with MAYA44 USB+ and previous model MAYA44 USB

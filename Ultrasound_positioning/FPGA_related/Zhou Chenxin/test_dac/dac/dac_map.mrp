@@ -1,0 +1,188 @@
+Release 14.6 Map P.68d (nt64)
+Xilinx Mapping Report File for Design 'dac'
+
+Design Information
+------------------
+Command Line   : map -intstyle ise -p xc5vlx50t-ff1136-2 -w -logic_opt off -ol
+high -t 1 -register_duplication off -global_opt off -mt off -cm area -ir off -pr
+off -lc off -power off -o dac_map.ncd dac.ngd dac.pcf 
+Target Device  : xc5vlx50t
+Target Package : ff1136
+Target Speed   : -2
+Mapper Version : virtex5 -- $Revision: 1.55 $
+Mapped Date    : Thu Dec 20 17:05:10 2018
+
+Design Summary
+--------------
+Number of errors:      0
+Number of warnings:    0
+Slice Logic Utilization:
+  Number of Slice Registers:                    25 out of  28,800    1%
+    Number used as Flip Flops:                  25
+  Number of Slice LUTs:                         57 out of  28,800    1%
+    Number used as logic:                       55 out of  28,800    1%
+      Number using O6 output only:              33
+      Number using O5 output only:              20
+      Number using O5 and O6:                    2
+    Number used as exclusive route-thru:         2
+  Number of route-thrus:                        22
+    Number using O6 output only:                22
+
+Slice Logic Distribution:
+  Number of occupied Slices:                    19 out of   7,200    1%
+  Number of LUT Flip Flop pairs used:           57
+    Number with an unused Flip Flop:            32 out of      57   56%
+    Number with an unused LUT:                   0 out of      57    0%
+    Number of fully used LUT-FF pairs:          25 out of      57   43%
+    Number of unique control sets:               3
+    Number of slice register sites lost
+      to control set restrictions:               3 out of  28,800    1%
+
+  A LUT Flip Flop pair for this architecture represents one LUT paired with
+  one Flip Flop within a slice.  A control set is a unique combination of
+  clock, reset, set, and enable signals for a registered element.
+  The Slice Logic Distribution report is not meaningful if the design is
+  over-mapped for a non-slice resource or if Placement fails.
+  OVERMAPPING of BRAM resources should be ignored if the design is
+  over-mapped for a non-BRAM resource or if placement fails.
+
+IO Utilization:
+  Number of bonded IOBs:                        19 out of     480    3%
+
+Specific Feature Utilization:
+  Number of BUFG/BUFGCTRLs:                      1 out of      32    3%
+    Number used as BUFGs:                        1
+
+Average Fanout of Non-Clock Nets:                2.01
+
+Peak Memory Usage:  562 MB
+Total REAL time to MAP completion:  12 secs 
+Total CPU time to MAP completion:   11 secs 
+
+Table of Contents
+-----------------
+Section 1 - Errors
+Section 2 - Warnings
+Section 3 - Informational
+Section 4 - Removed Logic Summary
+Section 5 - Removed Logic
+Section 6 - IOB Properties
+Section 7 - RPMs
+Section 8 - Guide Report
+Section 9 - Area Group and Partition Summary
+Section 10 - Timing Report
+Section 11 - Configuration String Information
+Section 12 - Control Set Information
+Section 13 - Utilization by Hierarchy
+
+Section 1 - Errors
+------------------
+
+Section 2 - Warnings
+--------------------
+
+Section 3 - Informational
+-------------------------
+INFO:LIT:243 - Logical network sync has no load.
+INFO:MapLib:562 - No environment variables are currently set.
+INFO:LIT:244 - All of the single ended outputs in this design are using slew
+   rate limited output drivers. The delay on speed critical single ended outputs
+   can be dramatically reduced by designating them as fast outputs.
+INFO:Pack:1716 - Initializing temperature to 85.000 Celsius. (default - Range:
+   0.000 to 85.000 Celsius)
+INFO:Pack:1720 - Initializing voltage to 0.950 Volts. (default - Range: 0.950 to
+   1.050 Volts)
+INFO:Map:215 - The Interim Design Summary has been generated in the MAP Report
+   (.mrp).
+INFO:Pack:1650 - Map created a placed design.
+
+Section 4 - Removed Logic Summary
+---------------------------------
+   2 block(s) optimized away
+
+Section 5 - Removed Logic
+-------------------------
+
+Optimized Block(s):
+TYPE 		BLOCK
+GND 		XST_GND
+VCC 		XST_VCC
+
+To enable printing of redundant blocks removed and signals merged, set the
+detailed map report option and rerun map.
+
+Section 6 - IOB Properties
+--------------------------
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| IOB Name                           | Type             | Direction | IO Standard          | Diff  | Drive    | Slew | Reg (s)      | Resistor | IOB      |
+|                                    |                  |           |                      | Term  | Strength | Rate |              |          | Delay    |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| clk                                | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| clk_out                            | IOB              | OUTPUT    | LVCMOS25             |       | 12       | SLOW |              |          |          |
+| din                                | IOB              | OUTPUT    | LVCMOS25             |       | 12       | SLOW |              |          |          |
+| value<0>                           | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<1>                           | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<2>                           | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<3>                           | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<4>                           | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<5>                           | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<6>                           | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<7>                           | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<8>                           | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<9>                           | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<10>                          | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<11>                          | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<12>                          | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<13>                          | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<14>                          | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| value<15>                          | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Section 7 - RPMs
+----------------
+
+Section 8 - Guide Report
+------------------------
+Guide not run on this design.
+
+Section 9 - Area Group and Partition Summary
+--------------------------------------------
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+Area Group Information
+----------------------
+
+  No area groups were found in this design.
+
+----------------------
+
+Section 10 - Timing Report
+--------------------------
+A logic-level (pre-route) timing report can be generated by using Xilinx static
+timing analysis tools, Timing Analyzer (GUI) or TRCE (command line), with the
+mapped NCD and PCF files. Please note that this timing report will be generated
+using estimated delay information. For accurate numbers, please generate a
+timing report with the post Place and Route NCD file.
+
+For more information about the Timing Analyzer, consult the Xilinx Timing
+Analyzer Reference Manual; for more information about TRCE, consult the Xilinx
+Command Line Tools User Guide "TRACE" chapter.
+
+Section 11 - Configuration String Details
+-----------------------------------------
+Use the "-detail" map option to print out Configuration Strings
+
+Section 12 - Control Set Information
+------------------------------------
+Use the "-detail" map option to print out Control Set Information.
+
+Section 13 - Utilization by Hierarchy
+-------------------------------------
+Use the "-detail" map option to print out the Utilization by Hierarchy section.

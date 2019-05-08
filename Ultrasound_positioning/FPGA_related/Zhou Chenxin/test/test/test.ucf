@@ -1,0 +1,10 @@
+NET "clk" LOC = H19;
+NET "reset" LOC = G7;
+NET "din" LOC = AD11;
+NET "sync_out" LOC = AD9;
+NET "clk_out" LOC = AM13;
+NET "c_led" LOC = AM12;
+# PlanAhead Generated physical constraints 
+
+NET "led" LOC = AE11;
+NET "clk_led" LOC = AF11;

@@ -1,0 +1,9 @@
+
+NET "clk" LOC = J14;
+NET "clk_out" LOC = AM13;
+NET "din" LOC = AD11;
+NET "sync" LOC = AD9;
+
+
+NET "vdd1" LOC = AE9;
+NET "vdd2" LOC = AC8;

@@ -1,0 +1,13 @@
+//! **************************************************************************
+// Written by: Map P.68d on Wed Dec 26 16:43:13 2018
+//! **************************************************************************
+
+SCHEMATIC START;
+COMP "clk" LOCATE = SITE "J14" LEVEL 1;
+COMP "din" LOCATE = SITE "AD11" LEVEL 1;
+COMP "vdd1" LOCATE = SITE "AE9" LEVEL 1;
+COMP "vdd2" LOCATE = SITE "AC8" LEVEL 1;
+COMP "sync" LOCATE = SITE "AD9" LEVEL 1;
+COMP "clk_out" LOCATE = SITE "AM13" LEVEL 1;
+SCHEMATIC END;
+

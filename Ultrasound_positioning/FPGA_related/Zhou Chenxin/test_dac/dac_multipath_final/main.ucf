@@ -1,0 +1,15 @@
+
+NET "clk" LOC = J14;
+NET "clk_out" LOC = AM13;
+NET "din" LOC = AD11;
+NET "sync" LOC = AD9;
+
+
+NET "vdd1" LOC = AE9;
+NET "vdd2" LOC = AC8;
+
+# PlanAhead Generated physical constraints 
+
+NET "din_1" LOC = AL11;
+NET "clk_out_1" LOC = AK9;
+NET "sync_1" LOC = AJ10;

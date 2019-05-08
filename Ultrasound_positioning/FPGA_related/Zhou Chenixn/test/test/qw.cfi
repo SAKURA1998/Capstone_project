@@ -1,0 +1,12 @@
+# PROMGEN: Xilinx Prom Generator P.68d
+# Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+SOFTWARE_VERSION P.68d
+DATE            01/10/2019 - 16:38
+SOURCE          C:\Users\SJTU\Desktop\Zhou Chenixn\test\test\qw.mcs
+DEVICE          XCF32P
+DATA_WIDTH      8
+FILL_DATA       0xFF
+SIGNATURE       0x0A601C5B
+START_ADDRESS   0x00000000 END_ADDRESS 0x00359B53 DIRECTION_UP   "C:/Users/SJTU/Desktop/ad7606_fpga/transmitter/top.bit" 5vlx50tff1136
+                                                                 "C:/Users/SJTU/Desktop/ad7606_fpga/transmitter/top.bit" 5vlx50tff1136

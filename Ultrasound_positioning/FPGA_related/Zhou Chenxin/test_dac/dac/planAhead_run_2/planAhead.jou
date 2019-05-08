@@ -1,0 +1,17 @@
+#-----------------------------------------------------------
+# PlanAhead v14.6 (64-bit)
+# Build 269223 by xbuild on Wed Jun  5 11:14:03 MDT 2013
+# Start of session at: Fri Dec 21 13:52:21 2018
+# Process ID: 37080
+# Log file: C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac/planAhead_run_2/planAhead.log
+# Journal file: C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac/planAhead_run_2/planAhead.jou
+#-----------------------------------------------------------
+start_gui
+source {C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac/pa.fromNetlist.tcl}
+startgroup
+set_property package_pin AE9 [get_ports vdd1]
+endgroup
+startgroup
+set_property package_pin AC8 [get_ports vdd2]
+endgroup
+save_constraints
