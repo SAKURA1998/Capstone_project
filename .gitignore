@@ -1,0 +1,4 @@
+$ cat .gitignore
+
+#This file is useless now because it contains FPGA and android apk build information
+/Ultrasound_positioning/*

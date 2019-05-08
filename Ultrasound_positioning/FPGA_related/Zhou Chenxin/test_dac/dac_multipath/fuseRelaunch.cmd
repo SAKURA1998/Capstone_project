@@ -1,1 +1,0 @@
--intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath/t_isim_beh.exe" -prj "C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/dac_multipath/t_beh.prj" "work.t" "work.glbl" 

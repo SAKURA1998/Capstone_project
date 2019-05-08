@@ -1,6 +1,0 @@
-xst -intstyle ise -ifn "C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/tran3/uart_tx.xst" -ofn "C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/tran3/uart_tx.syr" 
-xst -intstyle ise -ifn "C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/tran3/uart_tx.xst" -ofn "C:/Users/SJTU/Desktop/Zhou Chenxin/test_dac/tran3/uart_tx.syr" 
-ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc5vlx50t-ff1136-2 "uart_tx.ngc" uart_tx.ngd  
-map -intstyle ise -p xc5vlx50t-ff1136-2 -w -logic_opt off -ol high -t 1 -register_duplication off -global_opt off -mt off -cm area -ir off -pr off -lc off -power off -o uart_tx_map.ncd uart_tx.ngd uart_tx.pcf 
-par -w -intstyle ise -ol high -mt off uart_tx_map.ncd uart_tx.ncd uart_tx.pcf 
-trce -intstyle ise -v 3 -s 2 -n 3 -fastpaths -xml uart_tx.twx uart_tx.ncd -o uart_tx.twr uart_tx.pcf 

@@ -1,8 +1,0 @@
-INTSTYLE=ise
-INFILE=C:\Users\SJTU\Desktop\Zhou Chenixn\test\test\test.ncd
-OUTFILE=C:\Users\SJTU\Desktop\Zhou Chenixn\test\test\test.bit
-FAMILY=Virtex5
-PART=xc5vlx50t-2ff1136
-WORKINGDIR=C:\Users\SJTU\Desktop\Zhou Chenixn\test\test
-LICENSE=WebPack
-USER_INFO=__0_0_0

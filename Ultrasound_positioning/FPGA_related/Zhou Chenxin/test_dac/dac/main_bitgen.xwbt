@@ -1,8 +1,0 @@
-INTSTYLE=ise
-INFILE=C:\Users\SJTU\Desktop\Zhou Chenxin\test_dac\dac\main.ncd
-OUTFILE=C:\Users\SJTU\Desktop\Zhou Chenxin\test_dac\dac\main.bit
-FAMILY=Virtex5
-PART=xc5vlx50t-2ff1136
-WORKINGDIR=C:\Users\SJTU\Desktop\Zhou Chenxin\test_dac\dac
-LICENSE=WebPack
-USER_INFO=__0_0_0
