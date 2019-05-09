@@ -1,6 +1,10 @@
 clear, clc, close all
 % load an audio file
-[a, Fs] = audioread('Track 8.wav');
+[a, Fs] = audioread('recording.m4a');
+subplot(2,1,1);
+plot(a(:,1))
+subplot(2,1,2);
+plot(a(:,2))
 a             = a(:,1);
 len           = size(a, 1);
 t             = 1 / Fs : 1/Fs : len/Fs ;  % time in seconds
