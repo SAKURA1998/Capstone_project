@@ -1,14 +1,14 @@
 clear, clc, close all
 % load an audio file
-[a, Fs] = audioread('recording.m4a');
+[a, Fs] = audioread('matlab_asio_recorded_18k.wav');
 subplot(2,1,1);
 plot(a(:,1))
 subplot(2,1,2);
-plot(a(:,2))
+%plot(a(:,2))
 a             = a(:,1);
 len           = size(a, 1);
 t             = 1 / Fs : 1/Fs : len/Fs ;  % time in seconds
-f_carrier     = 10000;
+f_carrier     = 18000;
 signal_real   = sqrt(2)*cos(2 * pi * f_carrier * t);
 signal_img    = sqrt(2)*sin(2 * pi * f_carrier * t);
 result_real   = a .* signal_real.';
@@ -25,6 +25,7 @@ baseband_img_downsampled  = resample(baseband_img, 1, 12, 10);
 
 baseband_signal = baseband_real - 1i*baseband_img;
 baseband_signal_downsampled = baseband_real_downsampled- 1i*baseband_img_downsampled;
+plot(abs(baseband_signal_downsampled));
 
 theta = 0.003;                      %Threshold for coarse frame detection
 frame_begin = 1;
@@ -36,6 +37,9 @@ for i = 1:size(baseband_signal_downsampled,1)
     end
 end
 
+%test!!!!!!
+frame_begin = 260;
+
 b = [1 1 1 1 1 -1 -1 1 1 -1 1 -1 1];
 b = [zeros(1, 22) b  zeros(1, 15)];
 b_upsampled = interp(b,12);
@@ -44,7 +48,7 @@ peak_index_phase   = zeros(2000/12.5, 8, 2);  %last bit 1 for index, 2 for phase
 
 frame_forward = 5;
 
-for frame_num = 1:size(peak_index_phase, 1)
+for frame_num = 1:size(peak_index_phase, 1)-10
     current_frame_start = 12 * (frame_begin - frame_forward + (frame_num - 1) * 12.5 * 4);
     current_frame_end   = 12 * (frame_begin - frame_forward + size(b ,2) - 1 + (frame_num - 1) * 12.5 * 4);
     %[c, lags] = xcorr(baseband_signal_downsampled(current_frame_start : current_frame_end, 1), b);
@@ -53,9 +57,9 @@ for frame_num = 1:size(peak_index_phase, 1)
     %stem(lags,abs(c));                 %We can observe that the calculated starting point is 45, as expected. Cheer!
     %TODO  use the raw sampled data to do fine grained estimation
     [c, lags] = xcorr(baseband_signal(current_frame_start : current_frame_end, 1), b_upsampled);
-    if mod(frame_num, 10)==0
+    %if mod(frame_num, 10)==0
         plot(lags(1, 300:end), abs(c(300:end, 1)));                 %fine grained estimate
-    end
+    %end
     [pks,locs] = findpeaks(abs(c));
     [~, I] = max(pks);
     theta = angle(c);

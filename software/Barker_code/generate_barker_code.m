@@ -10,7 +10,7 @@ close all;
 bandwidth_lowpass = 4000;   %Hz
 sample_rate = 48000;		%Hz
 total_time = 2;				%s
-f_carrier=10000;			%%Frequency of the carrier fc in Hz
+f_carrier=18000;			%%Frequency of the carrier fc in Hz
 
 %Nb is the number of bits to be transmitted
 T=1;%Bit rate is assumed to be 1 bit/s;
@@ -77,7 +77,7 @@ xlabel('Time (seconds)-->');
 ylabel('Amplitude (volts)-->');
 title('BPSK Modulated signal');
 %Write into a wav file
-audiowrite('audio_barker.wav', Passband_signal, sample_rate, 'BitsPerSample', 16);
+audiowrite('audio_barker_18k.wav', Passband_signal, sample_rate, 'BitsPerSample', 16);
 
 
 %%Demodulate
