@@ -3,7 +3,7 @@
 
 clear, clc, close all
 % load an audio file
-[a, Fs] = audioread('audio_barker_20k.wav');
+[a, Fs] = audioread('../Audio_files/audio_barker_20k.wav');
 f_carrier = 20000;
 subplot(3,1,1);
 plot(a(:,1))
@@ -26,7 +26,6 @@ total_frame = floor(size(a,1)/600) - 1; %Each frame contains 600 sample points
 path_length_two_mic = zeros(total_frame, 2);
 
 for mic_num = 1:size(path_length_two_mic, 2)
-    %%%Remember to change 1 to mic_num!!!!!!!!!!
     for frame_num = 1:total_frame
         current_frame_start = 12 * (frame_begin - frame_forward + (frame_num - 1) * 12.5 * 4);
         current_frame_end   = 12 * (frame_begin - frame_forward + 50 + (frame_num - 1) * 12.5 * 4) - 1;

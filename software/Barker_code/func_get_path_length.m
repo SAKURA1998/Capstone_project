@@ -20,7 +20,7 @@ b_upsampled = func_generate_barker_sequence(Fs);
 % plot(lags(1, 300:end), abs(c(300:end, 1)));     %fine grained estimate
 
 
-peak_index_phase   = zeros(8, 2);  %last bit 1 for index, 2 for phase
+peak_index_phase   = zeros(4, 2);  %last bit 1 for index, 2 for phase
 
 %[c, lags] = xcorr(baseband_signal_downsampled(current_frame_start : current_frame_end, 1), b);
 %[~, I] = max(abs(c));
@@ -33,8 +33,11 @@ plot(lags(1, 1:end), abs(c(1:end, 1)));               %fine grained estimate
 [~, I] = max(pks);
 theta = angle(c);
 for tap_num = 1:size(peak_index_phase, 1)
-    peak_index_phase(tap_num, 1) = lags(1, locs(I + tap_num -1, 1));
-    peak_index_phase(tap_num, 2) = theta(locs(I + tap_num -1, 1), 1);
+    peak_index_phase(tap_num, 1) = lags(1, locs(I, 1));
+    peak_index_phase(tap_num, 2) = theta(locs(I, 1), 1);
+    %Then find the largest peak behind this peak
+    pks(1:I, 1) = zeros(I, 1);
+    [~, I] = max(pks);
 end
 
 % initial_frame_start = peak_index_phase(1, 1, 1);
@@ -61,7 +64,7 @@ speed_of_sound = 34000; %cm/s
 
 %divide by two to get the path length
 path_length = speed_of_sound / Fs * ...
-       (peak_index_phase(2, 1)) / 2;
+       (peak_index_phase(2, 1) - peak_index_phase(1, 1)) / 2;
 
 % for i = 1: size(peak_index_phase, 2)
 %     subplot(4, 2, i);

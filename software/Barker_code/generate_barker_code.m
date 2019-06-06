@@ -81,7 +81,7 @@ xlabel('Time (seconds)-->');
 ylabel('Amplitude (volts)-->');
 title('BPSK Modulated signal');
 %Write into a wav file
-audiowrite('audio_barker_20k.wav', Passband_signal, sample_rate, 'BitsPerSample', 16);
+audiowrite('../audio_files/audio_barker_20k.wav', Passband_signal, sample_rate, 'BitsPerSample', 16);
 
 
 %%Demodulate
