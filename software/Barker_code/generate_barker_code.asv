@@ -25,7 +25,7 @@ RZ_out=[];
 Manchester_out=[];
   
 %Vp is the peak voltage +v of the NRZ waveform
-Vp=2;
+Vp=0.2;
 %Here we encode input bitstream as Bipolar NRZ-L waveform
 for index=1:size(b,2)
  if b(index)==1
@@ -37,7 +37,7 @@ end
 
 %Do zero padding to upsample the sequence in baseband
 %fs = 48 kHz, Bandwidth = 4 kHz (18 kHz - 22 kHz), fs/B = 12
-NRZ_out = upsample(NRZ_out,12);          %TODO upsample or interplot??
+NRZ_out = in(NRZ_out,12);          %TODO upsample or interplot??
 
 %Padding with zero to form a single 12.5ms frame
 NRZ_out = [zeros(1,12*(50-13-18)) NRZ_out  zeros(1,12* 18)];

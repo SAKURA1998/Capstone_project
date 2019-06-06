@@ -1,8 +1,8 @@
 %See site below
 %https://ww2.mathworks.cn/help/audio/ref/audioplayerrecorder-system-object.html
 
-inputFile = 'audio_barker_20k.wav';
-outputFile = 'matlab_asio_recorded_20k.wav';
+inputFile = 'audio_barker.wav';
+outputFile = 'matlab_asio_recorded.wav';
 
 fileReader = dsp.AudioFileReader(inputFile, ...
     'SamplesPerFrame',512);
@@ -18,7 +18,7 @@ deviceReader = audioDeviceReader(...
     'Device','ASIO4ALL v2',...
     'Driver','ASIO',...
     'SamplesPerFrame',512,...
-    'NumChannels',8,...
+    'NumChannels',4,...
     'SampleRate',fs);
 
 deviceWriter = audioDeviceWriter(...
@@ -55,8 +55,8 @@ release(fileReader);
 
 [a, Fs] = audioread(outputFile);
 subplot(3,1,1);
-plot(a(:,2))
+plot(a(:,1))
 subplot(3,1,2);
-plot(a(:,5))
-subplot(3,1,3);
-plot(a(:,6))
+plot(a(:,2))
+% subplot(3,1,3);
+% plot(a(:,5))
