@@ -9,9 +9,9 @@ close all;
 %Some predefined value
 bandwidth_lowpass = 4000;   %Hz
 sample_rate = 48000;		%Hz
-frame_time = 0.0125;				%s
+frame_time = 1024/48000;				%s
 total_frame = 160;
-f_carrier=20000;			%%Frequency of the carrier fc in Hz
+f_carrier=10000;			%%Frequency of the carrier fc in Hz
 
 %Nb is the number of bits to be transmitted
 T=1;%Bit rate is assumed to be 1 bit/s;
@@ -39,8 +39,9 @@ end
 %fs = 48 kHz, Bandwidth = 4 kHz (18 kHz - 22 kHz), fs/B = 12
 NRZ_out = upsample(NRZ_out,12);          %TODO upsample or interplot??
 
-%Padding with zero to form a single 12.5ms frame
-NRZ_out = [zeros(1,12*(50-13-18)) NRZ_out  zeros(1,12* 18)];
+%Padding with zero to form a single not 12.5ms frame, but 1024 sample point
+%per frame to speed up
+NRZ_out = [zeros(1,12*(50-13-18) + 1024 - 600) NRZ_out  zeros(1,12* 18)];
 
 
 
@@ -81,7 +82,7 @@ xlabel('Time (seconds)-->');
 ylabel('Amplitude (volts)-->');
 title('BPSK Modulated signal');
 %Write into a wav file
-audiowrite('../audio_files/audio_barker_20k.wav', Passband_signal, sample_rate, 'BitsPerSample', 16);
+audiowrite('../audio_files/audio_barker_10k.wav', Passband_signal, sample_rate, 'BitsPerSample', 16);
 
 
 %%Demodulate
@@ -89,27 +90,27 @@ y=[];
 %We begin demodulation by multiplying the received signal again with 
 %the carrier (basis function)
 
-signal_real   = sqrt(2)*cos(2 * pi * f_carrier * t);
-signal_img    = sqrt(2)*sin(2 * pi * f_carrier * t);
-result_real   = Passband_signal .* signal_real;
-baseband_real = lowpass(result_real, 2000, sample_rate);
-result_img    = Passband_signal .* signal_img;
-baseband_img  = lowpass(result_img, 2000, sample_rate);
-baseband_real = resample(baseband_real, 1, 12, 5, 10);
-baseband_img = resample(baseband_img, 1, 12, 5, 10);
-
-baseband_signal = baseband_real - 1i*baseband_img;
-
-plot(baseband_signal, 'o');
-%Here we perform the integration over time period T using trapz 
-%Integrator is an important part of correlator receiver used here
-for i=1:12:size(demodulated,2)
- y=[y trapz(t(i:i+11),demodulated(i:i+11))];
-end
-received=y>0;
-figure;
-plot(y)
-title('Impulses of Received bits');
-xlabel('Time (seconds)-->');
-ylabel('Amplitude (volts)')
+% signal_real   = sqrt(2)*cos(2 * pi * f_carrier * t);
+% signal_img    = sqrt(2)*sin(2 * pi * f_carrier * t);
+% result_real   = Passband_signal .* signal_real;
+% baseband_real = lowpass(result_real, 2000, sample_rate);
+% result_img    = Passband_signal .* signal_img;
+% baseband_img  = lowpass(result_img, 2000, sample_rate);
+% baseband_real = resample(baseband_real, 1, 12, 5, 10);
+% baseband_img = resample(baseband_img, 1, 12, 5, 10);
+% 
+% baseband_signal = baseband_real - 1i*baseband_img;
+% 
+% plot(baseband_signal, 'o');
+% %Here we perform the integration over time period T using trapz 
+% %Integrator is an important part of correlator receiver used here
+% for i=1:12:size(demodulated,2)
+%  y=[y trapz(t(i:i+11),demodulated(i:i+11))];
+% end
+% received=y>0;
+% figure;
+% plot(y)
+% title('Impulses of Received bits');
+% xlabel('Time (seconds)-->');
+% ylabel('Amplitude (volts)')
  

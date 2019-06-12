@@ -1,8 +1,8 @@
 %See site below
 %https://ww2.mathworks.cn/help/audio/ref/audioplayerrecorder-system-object.html
 
-inputFile = 'audio_barker.wav';
-outputFile = 'matlab_asio_recorded.wav';
+inputFile = '../audio_files/audio_barker_10k.wav';
+outputFile = '../audio_files/matlab_asio_recorded_10k.wav';
 
 fileReader = dsp.AudioFileReader(inputFile, ...
     'SamplesPerFrame',512);

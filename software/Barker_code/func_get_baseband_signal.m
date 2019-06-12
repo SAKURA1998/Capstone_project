@@ -16,5 +16,5 @@ result_img    = a .* signal_img.';
 baseband_img  = lowpass(result_img, 2000, Fs);
 baseband_signal = baseband_real - 1i*baseband_img;
 
-figure;
-plot(abs(baseband_signal));
+% figure
+% plot(abs(baseband_signal));
