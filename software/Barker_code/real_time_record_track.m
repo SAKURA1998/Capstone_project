@@ -30,8 +30,8 @@ setup(deviceReader);
 setup(deviceWriter, ...
     zeros(fileReader.SamplesPerFrame,fileInfo.NumChannels));
 
-% totalOverrun = 0;
-% totalUnderrun = 0;
+totalOverrun = 0;
+totalUnderrun = 0;
 
 %Initialize filter and compare sequence
 %get lowpass filter
@@ -45,76 +45,88 @@ b_upsampled = func_generate_barker_sequence(samplesPerFrame);
 
 input = fileReader();
 %waiting for the system to be stable
-for i=1:8 * 48000/ 1024
+for i=1:4 * 48000/ 1024
     deviceWriter(input);
     acquiredAudio = deviceReader();
 end
 
-%get frame start
-baseband_signal = func_get_baseband_signal(acquiredAudio(:, 1), fs, f_carrier);
+b_upsample_shifted = zeros(samplesPerFrame, 2);
+for mic_num = 1:2
+    %get frame start
+    baseband_signal = func_get_baseband_signal(acquiredAudio(:, mic_num), fs, f_carrier);
+    shift = func_sync(acquiredAudio(:, mic_num), fs, f_carrier, b_upsampled);
+    b_upsampled_shifted(:, mic_num) = circshift(b_upsampled, shift);
+end
 
-shift = func_sync(acquiredAudio(:, 1), fs, f_carrier, b_upsampled);
-detect_range = 100;
-b_upsampled = circshift(b_upsampled, shift);
-func_sync(acquiredAudio(:, 1), fs, f_carrier, b_upsampled);
-
-ir_matrix = zeros(detect_range+1, 1);
-phase_of_frames = [];
-delay_of_frames = [];
-distance_of_frames = [0];
+detect_range = 50;
+total_frame = 1000;
+ir_matrix = zeros(2 * detect_range+1, 2);
+phase_of_frames = zeros(total_frame, 2);
+delay_of_frames = zeros(total_frame, 2);
+distance_of_frame = zeros(1, 2);
 frame_num = 0;
 
 h = animatedline;
-axis([0 1000 -20 20])
+%this is the temporarily screen size
+axis([0 20 0 20])
 
 disp('Can move now.')
-while (frame_num < 1000)
+tic
+while (frame_num < total_frame)
     frame_num = frame_num + 1;
     numUnderrun = deviceWriter(input);
     [acquiredAudio,numOverrun] = deviceReader();
 
-    baseband_signal = func_get_baseband_signal(acquiredAudio(:, 1), fs, f_carrier);
-    [c, ~] = xcorr(baseband_signal, b_upsampled, detect_range);
-    
-    if(frame_num > 1)
-        sub = c - ir_matrix;
-        [~, I] = max(abs(sub));
-        reflect_delay = I - detect_range - 1;
-        delay_of_frames = [delay_of_frames reflect_delay];
-        phase_of_frames = [phase_of_frames angle(sub(I, 1))];
+    for mic_num = 1:2
+        baseband_signal = func_get_baseband_signal(acquiredAudio(:, mic_num), fs, f_carrier);
+        [c, ~] = xcorr(baseband_signal, b_upsampled_shifted(:, mic_num), detect_range);
+
+        if(frame_num > 1)
+            sub = c - ir_matrix(:, mic_num);
+            sub = downsample(sub, 12);
+            [~, I] = max(abs(sub));
+            reflect_delay = 1 * 12 * (I - 1) - detect_range - 1;
+            delay_of_frames(frame_num -1, mic_num) = reflect_delay;
+            phase_of_frames(frame_num -1, mic_num) = angle(sub(I, 1));
+        end
+        ir_matrix(:, mic_num) = c;
     end
     
-    if(frame_num > 5)
-        phase_of_frames(1, frame_num - 2) =34000/20000/2/2/pi*(mod(((phase_of_frames(1,frame_num - 1) - phase_of_frames(1, frame_num - 2))+pi),2*pi)-pi);
-        distance_of_frames = [distance_of_frames (distance_of_frames(1, frame_num - 2) + phase_of_frames(1, frame_num - 2))];
-        addpoints(h, frame_num - 2, distance_of_frames(1, frame_num - 2));
-        drawnow
+    if(frame_num > 4)
+%         variance = var(delay_of_frames(frame_num - 4: frame_num - 1, 1))...
+%                     + var(delay_of_frames(frame_num - 4: frame_num - 1, 2));
+        for mic_num = 1:2
+            variance = var(delay_of_frames(frame_num - 4: frame_num - 1, mic_num));
+            if(variance == 0)
+                %Here do not need to divide by 2, as there is no
+                %double-path here
+                distance_diff = - 34000/20000/2/pi*(mod(((phase_of_frames(frame_num - 1, mic_num)...
+                    - phase_of_frames(frame_num - 2, mic_num))+pi),2*pi)-pi);
+                distance_of_frame(1, mic_num) = distance_of_frame(1, mic_num) + distance_diff;
+            end
+        end
+        %the initial position is assumed to be on the center of the
+        %20x20 screen
+        point = func_calculate_intersection(distance_of_frame(1, 1) + 20 * 1.414,...
+                distance_of_frame(1, 2) + 20 * 1.414, 20, 20);
+%         addpoints(h, frame_num - 2, distance_of_frame(1, 2));
+        if(size(point, 2)>0)
+            addpoints(h, point(1,1), point(1,2));
+        end
+        drawnow limitrate
     end
-    
-    ir_matrix = c;
-%    totalOverrun = totalOverrun + numOverrun;
-%    totalUnderrun = totalUnderrun + numUnderrun;
+   totalOverrun = totalOverrun + numOverrun;
+   totalUnderrun = totalUnderrun + numUnderrun;
 end
+toc
+drawnow
 disp('Stop it!')
 
 % figure;
-% plot(phase_of_frames);
-% 
-% phase_of_frames = transpose(phase_of_frames);
-
-% for frame_num = 1: size(phase_of_frames, 1) - 1
-%     phase_of_frames(frame_num, 1) =34000/20000/2/2/pi*(mod(((phase_of_frames(frame_num + 1, 1) - phase_of_frames(frame_num, 1))+pi),2*pi)-pi);
-% end
-% 
-% for frame_num = 2: size(phase_of_frames, 1)
-%     phase_of_frames(frame_num, 1) =phase_of_frames(frame_num - 1, 1) + phase_of_frames(frame_num, 1);
-% end
-
+% plot(phase_of_frames(:, 1));
 % figure;
-% plot(phase_of_frames);
+% plot(phase_of_frames(:, 2));
 
-% figure;
-% plot(delay_of_frames);
 
 release(deviceWriter);
 release(deviceReader);
