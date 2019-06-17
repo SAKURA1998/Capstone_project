@@ -11,6 +11,6 @@ baseband_signal = func_get_baseband_signal(a, Fs, f_carrier);
 [~, I] = max(abs(c));
 shift = lags(1,I);
 
-figure
-plot(lags(1, 1:end), abs(c(1:end, 1))); 
+% figure
+% plot(lags(1, 1:end), abs(c(1:end, 1))); 
 

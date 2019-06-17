@@ -3,13 +3,14 @@
 
 clear, clc, close all
 % load an audio file
-[a, Fs] = audioread('../audio_files/matlab_asio_recorded_10k.wav');
+[a, Fs] = audioread('../audio_files/matlab_asio_recorded_20k.wav');
 
 sample_per_frame = 1024;
-f_carrier = 10000;
+f_carrier = 20000;
 
 %The first four frames are abandoned here, cause they are inaccraute
 %Some random delays, remaning to be figure out
+%waiting for the system to be stable
 a  = a(34000:end,:);
 
 subplot(3,1,1);
@@ -18,8 +19,11 @@ plot(a(:,1))
 % plot(a(:,2))
 
 
-%a(3000:12000,:) = a(3000:12000,:) + 0.3*a(2970:11970,:);
-
+%get lowpass filter
+global digital_filter;
+[~, digital_filter] = lowpass(a(1:1024, 1),2000, Fs, ...
+    'ImpulseResponse', 'fir', ...
+    'Steepness', 0.85);
 
 
 %get frame start
@@ -32,16 +36,16 @@ total_frame = floor(size(a,1)/sample_per_frame) - 2; %Each frame contains 600 sa
 path_length_two_mic = zeros(total_frame, 2);
 
 %generate b_upsampled
-b_upsampled = func_generate_barker_sequence(Fs, sample_per_frame);
+b_upsampled = func_generate_barker_sequence(sample_per_frame);
 
 
-
+tic
 
 for mic_num = 1:1    %size(path_length_two_mic, 2)
     %do sync
     shift = func_sync(a(12 * (frame_begin - frame_forward):12 * (frame_begin - frame_forward) + sample_per_frame, mic_num)  ...
     , Fs, f_carrier, b_upsampled);
-    detect_range = 50;
+    detect_range = 100;
     b_upsampled = circshift(b_upsampled, shift);
     func_sync(a(12 * (frame_begin - frame_forward):12 * (frame_begin - frame_forward) + sample_per_frame, mic_num)  ...
     , Fs, f_carrier, b_upsampled);
@@ -74,10 +78,28 @@ for mic_num = 1:1    %size(path_length_two_mic, 2)
     end
 end
 
+toc
 figure;
 plot(angle(path_length_two_mic(:,1)));
+
+path_length_two_mic(:,1) = angle(path_length_two_mic(:,1));
+
+%calculate the relative distance
+for frame_num = 1: size(path_length_two_mic,1) - 1
+    path_length_two_mic(frame_num, 1) =34000/20000/2/pi*(mod(((path_length_two_mic(frame_num + 1, 1) - path_length_two_mic(frame_num, 1))+pi),2*pi)-pi);
+end
+
+for frame_num = 2: size(path_length_two_mic,1)
+    path_length_two_mic(frame_num, 1) =path_length_two_mic(frame_num - 1, 1) + path_length_two_mic(frame_num, 1);
+end
+
+figure;
+plot(path_length_two_mic(:,1));
+
 figure;
 plot(path_length_two_mic(:,2));
+
+
 
 track = func_generate_track(path_length_two_mic);
 
