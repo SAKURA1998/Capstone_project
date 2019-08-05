@@ -15,14 +15,22 @@ def follow(thefile):
 def parse_line(line):
     splits = line.split(" ")
     action = splits[0]
-    x = int(splits[1])
-    y = int(splits[2])
     if action == "c":  # click
+        x = int(splits[1])
+        y = int(splits[2])
         pyautogui.click(x=x, y=y)
+    elif action == "s":  # slide
+        direction = splits[1]
+        if direction in ['left', 'right', 'up', 'down']:
+            pyautogui.press(direction)
+        else:
+            print("undefined direction " + direction)
+    else:
+        print("undefined action " + action)
 
 
 def main():
-    logfile = open("/Users/jasonqsy/Desktop/click.log", "r")
+    logfile = open("click.log", "r")
     loglines = follow(logfile)
     for line in loglines:
         line = line.strip()
