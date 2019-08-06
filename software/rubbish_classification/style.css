@@ -33,3 +33,17 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.timeboard-container {
+    position: absolute;
+    left: 35vw;
+    top: 10vh;
+    font-size: 28pt;
+}
+
+.scoreboard-container {
+    position: absolute;
+    left: 65vw;
+    top: 10vh;
+    font-size: 28pt;
+}
