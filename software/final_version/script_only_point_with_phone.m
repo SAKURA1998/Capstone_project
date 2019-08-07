@@ -1,5 +1,5 @@
 clear all;close all; clc;
-addpath('../acoustic_dispersion', '../control_interface');
+addpath( '../control_interface');
 inputFile = '../audio_files/audio_barker_20k.wav';
 outputFile = '../audio_files/matlab_asio_recorded_20k.wav';
 f_carrier = 20000;
@@ -47,18 +47,16 @@ totalUnderrun = 0;
 [~, digital_filter] = lowpass(zeros(samplesPerFrame,1),2000, fs, ...
     'ImpulseResponse', 'fir', ...
     'Steepness', 0.85);
-digital_filter_20khz = designfilt('bandpassiir','FilterOrder',2, ...
+digital_filter_20khz = designfilt('bandpassiir','FilterOrder',8, ...
     'HalfPowerFrequency1',18000,'HalfPowerFrequency2',22000, ...
     'DesignMethod','butter','SampleRate',fs);
-digital_filter_5khz = designfilt('bandstopiir','FilterOrder',2, ...
-    'HalfPowerFrequency1',1,'HalfPowerFrequency2',5000, ...
-    'DesignMethod','butter','SampleRate',fs);
+% digital_filter_5khz = designfilt('bandstopiir','FilterOrder',2, ...
+%     'HalfPowerFrequency1',1,'HalfPowerFrequency2',5000, ...
+%     'DesignMethod','butter','SampleRate',fs);
 %generate b_upsampled
 b_upsampled = func_generate_barker_sequence(samplesPerFrame, digital_filter);
+b_upsampled = [zeros(1,samplesPerFrame) b_upsampled];
 
-for i=1:20
-    input = fileReader()*2;
-end
 
 %waiting for the system to be stable
 for i=1:100
@@ -84,8 +82,8 @@ sound_buffer = zeros(3, samplesPerFrame, total_mic);
 % Algorithm Configuation Parameters for M-SRP
 % =================================
 
-conf.wlen     = 3072;                           % Window length [samples]
-conf.timestep = 3072;                           % Time step (hop size) [samples]    
+conf.wlen     = samplesPerFrame;                           % Window length [samples]
+conf.timestep = samplesPerFrame;                           % Time step (hop size) [samples]    
 conf.c        = 345;                            % Speed of sound [m/s]
 conf.xyz      = [0, 0.53, 0, 0.30, -0.01, 0.01];         % xyz search space limits [m]: [xmin,xmax,ymin,ymax,zmin,zmax]
 conf.cres     = 0.005;                           % Spatial grid resolution [m]
@@ -132,7 +130,7 @@ while (1)
         acquiredAudio(:,3) = [];
         acquiredAudio(:,3) = [];
     end
-    fileWriter(acquiredAudio);
+%     fileWriter(acquiredAudio);
     %put into sound buffer
     sound_buffer(1,:,:) = sound_buffer(2,:,:);
     sound_buffer(2,:,:) = acquiredAudio(:,:);
@@ -155,9 +153,9 @@ while (1)
     %if touchsound detected (should use vibration and sound to determine)
     
 %     if(max(abs(filtfilt(digital_filter_5khz, acquiredAudio(:,1)))) > 0.2)
-     %if(max(val)>10&&frame_num - last_strike_frame > 10)
+     if(max(val)>15&&frame_num - last_strike_frame > 10)
      %testing out the point function with the phone in hand
-     if(max(abs(sound_buffer(2,:,1)))>0.2&&frame_num - last_strike_frame > 10)
+     %if(max(abs(sound_buffer(2,:,1)))>0.2&&frame_num - last_strike_frame > 10)
         %Calculate the movement distance in the following 10 frames
         %the number 10 is still in consideration
         disp('Strike detected')
@@ -170,57 +168,29 @@ while (1)
             acquiredAudio(:,3) = [];
         end
         sound_buffer(3,:,:) = acquiredAudio(:,:);
-%         figure
-%         for i = 1 :3
-%             subplot(3,1,i)
-%             plot(sound_buffer(i,:,1))
-%         end
-%         drawnow;
-        detect_frame_num = 10;
-        ir_matrix = [];
+        %         figure
+        %         for i = 1 :3
+        %             subplot(3,1,i)
+        %             plot(sound_buffer(i,:,1))
+        %         end
+        %         drawnow;
         
-%         for i = 1:detect_frame_num
-%             numUnderrun = deviceWriter(input);
-%             [acquiredAudio,numOverrun] = deviceReader();
-%             if(total_mic+2>3)
-%                 acquiredAudio(:,3) = [];
-%                 acquiredAudio(:,3) = [];
-%             end
-%             fileWriter(acquiredAudio);
-%             totalOverrun = totalOverrun + numOverrun;
-%             totalUnderrun = totalUnderrun + numUnderrun;
-%             cir = func_calCIR(acquiredAudio, fs, f_carrier, digital_filter, b_upsample_shifted);
-%             %put all the cir inteo a single matrix
-%             ir_matrix = cat(3, ir_matrix, cir);
-%         end
-%         %Use the last several frames or not?
-%         [motion_flag, distance_change] = func_calDisChange(ir_matrix(:,:,2:end));
-%         if(max(abs(motion_flag)) == 0)
-        if(1)
-            disp('point');
-            strike_sound = cat(1,squeeze(sound_buffer(1,:,:)),squeeze(sound_buffer(2,:,:)),squeeze(sound_buffer(3,:,:)));
-            sound_buffer(2,:,:) = 0;
-           %% =================================
-            % Estimate Locations
-            % =================================
-            strike_sound = filtfilt(digital_filter_20khz,strike_sound);
-            pos = msrploc_capstone(strike_sound,conf,inistruct)
-            %             pos = func_soundLocalization(strike_sound, fs, digital_filter_20khz,digital_filter_5khz)
-            write_click(round((pos(1)*100)/53*1920), round((30-pos(2)*100)/30*1080));
-            %             pos_dispersion = func_soundLocalization(squeeze(sound_buffer(2,:,:))');
-        else
-            disp('slide');
-            direction = zeros(2,1); %up/down left/right
-            direction = direction + [motion_flag(1);-motion_flag(1)]...
-                +[motion_flag(2);-motion_flag(2)]...
-                +[motion_flag(3);motion_flag(3)]...
-                +[motion_flag(4);motion_flag(4)]
-%             break;
-        end
-    else
-        %align the sequence to be cross correlated
-%         b_upsample_shifted = func_sync(acquiredAudio, fs, f_carrier, b_upsampled, digital_filter);
-    end
+        disp('point');
+        strike_sound = cat(1,squeeze(sound_buffer(1,:,:)),squeeze(sound_buffer(2,:,:)),squeeze(sound_buffer(3,:,:)));
+        sound_buffer(2,:,:) = 0;
+        %% =================================
+        % Estimate Locations
+        % =================================
+        strike_sound = filtfilt(digital_filter_20khz,sound_buffer(2,:,:));
+        %strike_sound = func_fakeSound(strike_sound, b_upsampled, fs, f_carrier, digital_filter);
+        pos = msrploc_capstone(strike_sound,conf,inistruct)
+        %             pos = func_soundLocalization(strike_sound, fs, digital_filter_20khz,digital_filter_5khz)
+        write_click(round((pos(1)*100)/53*1920), round((30-pos(2)*100)/30*1080));
+        %             pos_dispersion = func_soundLocalization(squeeze(sound_buffer(2,:,:))');
+     else
+         %align the sequence to be cross correlated
+         %         b_upsample_shifted = func_sync(acquiredAudio, fs, f_carrier, b_upsampled, digital_filter);
+     end
 
     %calculate the pos here
 
@@ -256,4 +226,10 @@ figure
  plot(a(:,1)*40)
 subplot(2,1,2)
  plot(arduino_out)
+ 
+ figure
+ for i = 1 :4
+     subplot(4,1,i)
+     plot(strike_sound(:,i))
+ end
  

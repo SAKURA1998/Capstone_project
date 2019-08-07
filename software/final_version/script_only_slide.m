@@ -51,8 +51,11 @@ totalUnderrun = 0;
 %generate b_upsampled
 b_upsampled = func_generate_barker_sequence(samplesPerFrame, digital_filter);
 
+%input = zeros(samplesPerFrame,2);
+
 for i=1:20
-    input = fileReader()*2;
+    input(:,1) = fileReader()*2;
+   % input(:,2) = input(:,1);
 end
 
 %waiting for the system to be stable
@@ -104,7 +107,7 @@ while (1)
         acquiredAudio(:,3) = [];
         acquiredAudio(:,3) = [];
     end
-    fileWriter(acquiredAudio);
+%     fileWriter(acquiredAudio);
     soundbuffer(1:samplesPerFrame,:) = soundbuffer(samplesPerFrame+1:end,:);
     soundbuffer(samplesPerFrame+1:end,:) = acquiredAudio(:,:);
     %%calculate frame difference
@@ -164,7 +167,7 @@ while (1)
 %         drawnow limitrate
     end
     %decide the movement direction
-    if(frame_num - last_slide_frame>detect_offset)
+    if(frame_num - last_slide_frame>detect_offset*2)
         max_change = zeros(total_mic,1);
         slide_flag = 1;
         %compute distance change
@@ -178,16 +181,16 @@ while (1)
             end
         end
         %compute the slide direction
-        if(max_change(1)>15&&max_change(4)>15)
+        if(max_change(1)>8&&max_change(4)>8&&max_change(2)>0&&max_change(3)>0)
             disp('up');
             write_slide("up");
-        elseif(max_change(1)<-15&&max_change(4)<-15)
+        elseif(max_change(1)<-10&&max_change(4)<-10&&max_change(2)<-5&&max_change(3)<-5)
             disp('down');
             write_slide("down");
-        elseif(max_change(1)>10&&max_change(4)<-10)
+        elseif(max_change(3)<-7&&max_change(4)<-7&&max_change(1)>4&&max_change(2)>4)
             disp('right');
             write_slide("right");
-        elseif(max_change(1)<-10&&max_change(4)>10)
+        elseif(max_change(1)<-7&&max_change(2)<-7&&max_change(3)>4&&max_change(4)>4)
             disp('left');
             write_slide("left");
         else
@@ -195,6 +198,7 @@ while (1)
         end
         %set the slide frame index
         if(slide_flag)
+            max_change
             last_slide_frame = frame_num + detect_offset;
         end
     end
@@ -205,7 +209,7 @@ disp('Stop it!')
     
     
 figure
-plot(relative_distance(:,1));
-hold on
-plot(relative_distance(:,4));
-hold on
+for i = 1 : 4
+    subplot(4,1,i)
+    plot(relative_distance(:,i));
+end
