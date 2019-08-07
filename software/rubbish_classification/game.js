@@ -1,42 +1,19 @@
 //obj_list = ['img/banana.jpg', 'img/battery.png', 'img/milk.png']
-obj_list = ['img/img1.png',  'img/img2.png',  'img/img3.png',  'img/img4.png',
-            'img/img5.png',  'img/img6.png',  'img/img7.png',  'img/img8.png',
-            'img/img9.png',  'img/img10.png', 'img/img11.png', 'img/img12.png',
-            'img/img13.png', 'img/img14.png', 'img/img15.png']
-answer_list = [3, 3, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 0, 0, 0, 0]
-obj_id = -1
+let obj_list = ['img/img1.png',  'img/img2.png',  'img/img3.png',  'img/img4.png',
+                'img/img5.png',  'img/img6.png',  'img/img7.png',  'img/img8.png',
+                'img/img9.png',  'img/img10.png', 'img/img11.png', 'img/img12.png',
+                'img/img13.png', 'img/img14.png', 'img/img15.png'];
+let answer_list = [3, 3, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, 0, 0, 0, 0];
+let obj_id = -1;
+let current_id = -1;
 
-var start;
-var timer;
+let start;
+let timer = null;
 
 $('body').click(function() {
     if (obj_id == -1) {
-        obj_id = obj_id + 1;
-        $('.obj').fadeOut("slow", function() {
-            $('#obj-img').attr("src", obj_list[obj_id]);
-            $('#obj-img').on('load', function() {
-                $('.obj').show();
-            })
-        });
-
-        start = new Date;
-        timer = setInterval(function() {
-            var second_left = Math.round(15 - (new Date - start) / 1000);
-            if (second_left < 10) {
-                $('.seconds-left').text('0' + second_left);
-            } else {
-                $('.seconds-left').text(second_left);
-            }
-
-            if (second_left <= 5) {
-                $('.timeboard-container').css("color", "red");
-            }
-            if (second_left <= 0) {
-                clearInterval(timer);
-                reset();
-                $('.seconds-left').text(15);
-            }
-        }, 1000);
+        shift();
+        reset_timer();
     }
 })
 
@@ -109,29 +86,61 @@ $('#dry-container').click(function() {
 });
 
 function check_correctness(cls) {
-    if (cls == answer_list[obj_id]) {
-        var score = parseInt($('.score').text());
+    //if (cls == answer_list[obj_id]) {
+    if (cls == answer_list[current_id]) {
+        let score = parseInt($('.score').text());
         $('.score').text(score + 1);
     }
 }
 
 function shift() {
-    obj_id = obj_id + 1;
-    if (obj_id >= answer_list.length) {
+    obj_id = obj_id + 1
+    //if (obj_id >= answer_list.length) {
+    if (obj_id >= 5) {
         reset();
     }
 
+    reset_timer();
+
+    current_id = parseInt((Math.random() * obj_list.length), 10)
     // show the next item
     $('.obj').css("top", "25%");
     $('.obj').css("left", "25%");
-    $('#obj-img').attr("src", obj_list[obj_id]);
+    //$('#obj-img').attr("src", obj_list[obj_id]);
+    $('#obj-img').attr("src", obj_list[current_id]);
     $('#obj-img').on('load', function() {
         $('.obj').show();
     })
 }
 
+function reset_timer() {
+    start = new Date;
+    if (timer == null) {
+        clearInterval(timer);
+    }
+    timer = setInterval(function() {
+        let second_left = Math.round(15 - (new Date - start) / 1000);
+        if (second_left < 10) {
+            $('.seconds-left').text('0' + second_left);
+        } else {
+            $('.seconds-left').text(second_left);
+        }
+
+        if (second_left <= 5) {
+            $('.timeboard-container').css("color", "red");
+        }
+        if (second_left <= 0) {
+            clearInterval(timer);
+            timer = null;
+            reset();
+            $('.seconds-left').text(15);
+        }
+    }, 1000);
+}
+
 function reset() {
     obj_id = -1;
+    $('.score').text(0);
     $('.timeboard-container').css("color", "black");
     $('.obj').fadeOut("slow", function() {
         $('#obj-img').attr("src", "img/start.png");

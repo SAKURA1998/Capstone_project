@@ -36,14 +36,14 @@ body {
 
 .timeboard-container {
     position: absolute;
-    left: 35vw;
+    left: 10vw;
     top: 10vh;
     font-size: 28pt;
 }
 
 .scoreboard-container {
     position: absolute;
-    left: 65vw;
+    left: 90vw;
     top: 10vh;
     font-size: 28pt;
 }
