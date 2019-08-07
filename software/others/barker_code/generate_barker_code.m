@@ -7,11 +7,11 @@ clear all;
 close all;
 
 %Some predefined value
-samplePerFrame = 512;
+samplePerFrame = 1024;
 bandwidth_lowpass = 4000;   %Hz
 sample_rate = 48000;		%Hz
 frame_time = samplePerFrame/48000;				%s
-total_frame = 16000;
+total_frame = 8000;
 f_carrier=20000;			%%Frequency of the carrier fc in Hz
 
 %Nb is the number of bits to be transmitted
@@ -26,7 +26,7 @@ RZ_out=[];
 Manchester_out=[];
   
 %Vp is the peak voltage +v of the NRZ waveform
-Vp=2;
+Vp=4;
 %Here we encode input bitstream as Bipolar NRZ-L waveform
 for index=1:size(b,2)
  if b(index)==1
@@ -85,7 +85,7 @@ xlabel('Time (seconds)-->');
 ylabel('Amplitude (volts)-->');
 title('BPSK Modulated signal');
 %Write into a wav file
-audiowrite('../audio_files/audio_barker_20k_512samplesPerFrame_1min.wav', Passband_signal, sample_rate, 'BitsPerSample', 16);
+audiowrite('../../audio_files/audio_barker_20k_1024samplesPerFrame_1min.wav', Passband_signal, sample_rate, 'BitsPerSample', 16);
 
 
 %%Demodulate
